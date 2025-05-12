@@ -3,10 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <title>Netlify CMS</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js" defer></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      window.netlifyIdentity = window.netlifyIdentity || {};
+    </script>
+    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </head>
   <body>
     <div id="nc-root"></div>
+
+    <script>
+      // Явно инициализируем Netlify Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function(user) {
+          if (!user) {
+            window.netlifyIdentity.on('login', function() {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+        window.netlifyIdentity.init(); // 👈 без этого кнопка может не сработать
+      }
+    </script>
   </body>
 </html>
