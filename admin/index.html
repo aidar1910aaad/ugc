@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
   <head>
     <meta charset="UTF-8" />
     <title>Netlify CMS</title>
@@ -7,10 +7,10 @@
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </head>
   <body>
-    <!-- ВАЖНО: именно этот div нужен CMS -->
     <div id="nc-root"></div>
 
     <script>
+      // Принудительная инициализация
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', (user) => {
           if (!user) {
@@ -19,7 +19,7 @@
             });
           }
         });
-        window.netlifyIdentity.init(); // Без этого CMS не активируется
+        window.netlifyIdentity.init(); // 👈 вот этого сейчас у тебя нет
       }
     </script>
   </body>
