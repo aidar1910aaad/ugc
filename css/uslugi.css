@@ -1,0 +1,62 @@
+.services-section {
+    background: #f9f9f9;
+    padding: 60px 20px;
+  }
+  
+  .services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: sans-serif;
+  }
+  
+  .services-container h1 {
+    font-size: 36px;
+    color: #000A1A;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
+  
+  .service-block {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  
+  .service-block h2 {
+    font-size: 20px;
+    color: #EC1C24;
+    margin-bottom: 15px;
+  }
+  
+  .service-block ul {
+    padding-left: 20px;
+    list-style: disc;
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  
+  .call-button {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: #EC1C24;
+    color: white;
+    font-size: 16px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .call-button:hover {
+    background-color: #c5171c;
+  }
+  
+  .cta-block {
+    text-align: center;
+    margin-top: 40px;
+  }
+  

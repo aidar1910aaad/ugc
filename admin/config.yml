@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: 'uploads'
+public_folder: '/uploads'
+
+collections:
+  - name: 'materials'
+    label: 'Материалы'
+    folder: 'materials'
+    create: true
+    slug: '{{slug}}'
+    format: 'json'
+    extension: 'json'
+    fields:
+      - { label: 'Название', name: 'title', widget: 'string' }
+      - { label: 'Категория', name: 'category', widget: 'string' }
+      - { label: 'Описание', name: 'body', widget: 'text' }
+      - { label: 'PDF-файл', name: 'pdf', widget: 'file' }
