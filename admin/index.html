@@ -7,7 +7,9 @@
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </head>
   <body>
-    <!-- Контейнер, куда CMS вставит интерфейс -->
+    <!-- ОБЯЗАТЕЛЬНО -->
+    <div id="nc-root"></div>
+
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", function (user) {
