@@ -1,28 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <title>Netlify CMS</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      window.netlifyIdentity = window.netlifyIdentity || {};
-    </script>
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </head>
   <body>
+    <!-- ВАЖНО: именно этот div нужен CMS -->
     <div id="nc-root"></div>
 
     <script>
-      // Явно инициализируем Netlify Identity
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', function(user) {
+        window.netlifyIdentity.on('init', (user) => {
           if (!user) {
-            window.netlifyIdentity.on('login', function() {
+            window.netlifyIdentity.on('login', () => {
               document.location.href = '/admin/';
             });
           }
         });
-        window.netlifyIdentity.init(); // 👈 без этого кнопка может не сработать
+        window.netlifyIdentity.init(); // Без этого CMS не активируется
       }
     </script>
   </body>
