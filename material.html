@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Материал</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="content">
+    <h1 id="title"></h1>
+    <p><strong>Категория:</strong> <span id="category"></span></p>
+    <p id="body"></p>
+    <a id="pdfLink" href="#" target="_blank">📄 Скачать PDF</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("slug");
+
+    if (slug) {
+      fetch(`/materials/${slug}.json`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("title").textContent = data.title;
+          document.getElementById("category").textContent = data.category;
+          document.getElementById("body").textContent = data.body;
+          document.getElementById("pdfLink").href = data.pdf;
+        })
+        .catch(err => {
+          document.getElementById("content").innerHTML = "<p>❌ Материал не найден</p>";
+        });
+    } else {
+      document.getElementById("content").innerHTML = "<p>❌ Слаг не указан</p>";
+    }
+  </script>
+</body>
+</html>
