@@ -1,2 +1,2 @@
 /admin/*
-  Content-Security-Policy: script-src 'self' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.netlify.com https://identity.netlify.com; frame-src https://*.netlify.app
+  Content-Security-Policy: script-src 'self' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.netlify.com https://identity.netlify.com; frame-src https://*.netlify.app
