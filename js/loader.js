@@ -1,4 +1,11 @@
+// 🔧 Вспомогательная функция — вывод секции, если есть значение
+function createSection(title, value) {
+  if (!value) return '';
+  return `<h2>${title}</h2><p>${value}</p>`;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+  // 1️⃣ Загружаем все [data-include] компоненты (header, footer и т.п.)
   const includes = document.querySelectorAll('[data-include]');
   const tasks = [];
 
@@ -11,8 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       })
       .then((html) => {
         el.innerHTML = html;
-
-        if (file.includes('hero')) initHeroSlider?.(); // если hero.html — запустить слайдер
+        if (file.includes('hero')) initHeroSlider?.(); // если это hero-блок
       })
       .catch(() => {
         el.innerHTML = `<p>Не удалось загрузить ${file}</p>`;
@@ -21,10 +27,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     tasks.push(task);
   }
 
-  // 👇 Дождались всех вставок, теперь загружаем JSON
+  // 2️⃣ Ждём, пока все include-вставки завершатся
   await Promise.all(tasks);
 
-  // Подгружаем категории в меню "Каталог"
+  // 3️⃣ Динамически подгружаем категории в меню "Каталог"
   const catalogMenu = document.getElementById('catalog-menu');
   const catalogLink = document.querySelector('.catalog-link');
   const catalogDropdown = document.querySelector('.catalog-dropdown');
@@ -47,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       catalogMenu.appendChild(link);
     });
 
-    // Открытие на мобильных
+    // 📱 Поведение на мобильных — по клику, не по hover
     catalogLink?.addEventListener('click', (e) => {
       if (window.innerWidth <= 768) {
         e.preventDefault();
@@ -56,23 +62,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Запускаем логику загрузки материала
+  // 4️⃣ Получаем параметр slug из URL и подгружаем материал
   const params = new URLSearchParams(window.location.search);
   const slug = params.get('slug');
 
   if (slug) {
-    fetch(`/materials/${slug}.json`)
-      .then((res) => res.json())
-      .then((data) => {
-        document.getElementById('title').textContent = data.title;
-        document.getElementById('category').textContent = data.category;
-        document.getElementById('body').innerHTML = data.body;
-        document.getElementById('pdfLink').href = data.pdf;
-      })
-      .catch(() => {
-        document.getElementById('content').innerHTML = '<p>❌ Материал не найден</p>';
-      });
+    try {
+      const res = await fetch(`/materials/${slug}.json`);
+      const data = await res.json();
+
+      // Заголовок, категория, PDF
+      document.getElementById('title').textContent = data.title || '';
+      document.getElementById('category').textContent = data.category || '';
+      document.getElementById('pdfLink').href = data.pdf || '#';
+
+      // Основной контент по секциям
+      const sectionsHTML = `
+        ${createSection('Краткое описание', data.body)}
+        ${createSection('Область применения', data.application)}
+        ${createSection('Особенности и преимущества', data.features)}
+        ${createSection('Технические характеристики', data.technical)}
+        ${createSection('Дозировка и расход', data.dosage)}
+        ${createSection('Упаковка', data.packaging)}
+        ${createSection('Условия хранения', data.storage)}
+        ${createSection('Меры предосторожности', data.precautions)}
+        ${createSection('Контроль качества', data.control)}
+        ${createSection('Производитель', data.manufacturer)}
+      `;
+
+      document.getElementById('body').innerHTML = sectionsHTML;
+    } catch (e) {
+      console.error(e);
+      document.getElementById('content').innerHTML = '<p>❌ Материал не найден</p>';
+    }
   } else {
-    document.getElementById('content').innerHTML = '<p>❌ Слаг не указан</p>';
+    // Нет слага в адресе
+    if (document.getElementById('content')) {
+      document.getElementById('content').innerHTML = '<p>❌ Слаг не указан</p>';
+    }
   }
 });

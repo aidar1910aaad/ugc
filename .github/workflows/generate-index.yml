@@ -1,0 +1,33 @@
+name: Generate Materials Index
+
+on:
+  push:
+    paths:
+      - 'materials/**.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout репозиторий
+        uses: actions/checkout@v3
+
+      - name: Установить Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Установить зависимости
+        run: npm install glob
+
+      - name: Сгенерировать materials-index.json
+        run: |
+          node scripts/generate-index.js
+
+      - name: Коммит и пуш
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add data/materials-index.json
+          git commit -m "⚙️ Автообновление materials-index.json" || echo "No changes"
+          git push
