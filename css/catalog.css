@@ -76,4 +76,43 @@
     font-size: 20px;
     color: white;
   }
+
+  @media (max-width: 1024px) {
+    .catalog-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 0 10px;
+    }
+  
+    .catalog-item {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .catalog-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .catalog-item {
+      width: 100%;
+      height: auto;
+      padding: 20px;
+    }
+  
+    .catalog-title {
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+  
+    .catalog-item p {
+      font-size: 14px;
+    }
+  
+    .arrow {
+      font-size: 18px;
+      bottom: 15px;
+      right: 15px;
+    }
+  }
   

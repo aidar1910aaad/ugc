@@ -1,21 +1,23 @@
 <header class="header">
-    <div class="container">
-      <a href="/">
-        <img src="/assets/logo.png" alt="Логотип" class="logo" />
-      </a>
-      
-      <input type="text" class="search" placeholder="Поиск..." />
-      <nav class="nav">
-        <a href="/catalog.html">Каталог</a>
-        <a href="/about.html">Компания</a>
-        <a href="/careers.html">Вакансии</a>
-        <a href="/services.html">Услуги</a>
-      </nav>
-      
-      <div class="phone">
-        
-        <button class="call-btn"><span>+7 (700) 123-45-67</span></button>
+  <div class="container">
+    <a href="/">
+      <img src="/assets/logo.png" alt="Логотип" class="logo" />
+    </a>
+
+    <input type="text" class="search" placeholder="Поиск..." />
+
+    <nav class="nav">
+      <div class="nav-item catalog-dropdown">
+        <a href="#" class="catalog-link">Каталог</a>
+        <div class="dropdown-menu" id="catalog-menu"></div>
       </div>
+      <a href="/about.html">Компания</a>
+      <a href="/careers.html">Вакансии</a>
+      <a href="/services.html">Услуги</a>
+    </nav>
+
+    <div class="phone">
+      <button class="call-btn"><span>+7 (700) 123-45-67</span></button>
     </div>
-  </header>
-  
+  </div>
+</header>

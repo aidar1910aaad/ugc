@@ -72,4 +72,52 @@
     object-fit: cover;
     border-radius: 10px;
   }
+  @media (max-width: 1024px) {
+    .about-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .about-content {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+  
+    .about-image img {
+      width: 100%;
+      height: auto;
+      max-width: 500px;
+      margin-top: 30px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .about-title {
+      font-size: 24px;
+    }
+  
+    .about-underline {
+      width: 150px;
+      height: 4px;
+    }
+  
+    .about-text {
+      font-size: 16px;
+    }
+  
+    .about-button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  
+    .about-button__icon {
+      width: 14px;
+      height: 14px;
+    }
+  
+    .about-section {
+      padding: 40px 15px;
+    }
+  }
   

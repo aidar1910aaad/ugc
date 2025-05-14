@@ -1,0 +1,75 @@
+.material-section {
+    padding: 60px 20px;
+    background-color: #fff;
+    color: #111;
+    font-family: sans-serif;
+  }
+  
+  .material-section .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .material-title {
+    color: #EC1C24;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .material-body h2 {
+    color: #EC1C24;
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .material-body p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  
+  .material-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .material-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .material-btn.primary {
+    background-color: #EC1C24;
+    color: white;
+    border: none;
+  }
+  
+  .material-btn.secondary {
+    background-color: white;
+    color: #EC1C24;
+    border: 1px solid #EC1C24;
+  }
+  
+  .material-btn.primary:hover {
+    background-color: #c4151a;
+  }
+  
+  .material-btn.secondary:hover {
+    background-color: #EC1C24;
+    color: white;
+  }
+  

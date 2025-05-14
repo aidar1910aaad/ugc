@@ -2,17 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Материал</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div id="content">
-    <h1 id="title"></h1>
-    <p><strong>Категория:</strong> <span id="category"></span></p>
-    <p id="body"></p>
-    <a id="pdfLink" href="#" target="_blank">📄 Скачать PDF</a>
-  </div>
+  <div data-include="header.html"></div>
 
+  <!-- Контент подключается -->
+  <div data-include="info.html"></div>
+
+  <div data-include="footer.html"></div>
+
+  <script src="js/loader.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const slug = params.get("slug");

@@ -16,5 +16,43 @@ collections:
     fields:
       - { label: 'Название', name: 'title', widget: 'string' }
       - { label: 'Категория', name: 'category', widget: 'string' }
-      - { label: 'Описание', name: 'body', widget: 'text' }
-      - { label: 'PDF-файл', name: 'pdf', widget: 'file' }
+
+      - label: 'Область применения'
+        name: 'application'
+        widget: 'text'
+
+      - label: 'Особенности и преимущества'
+        name: 'features'
+        widget: 'text'
+
+      - label: 'Технические характеристики'
+        name: 'technical'
+        widget: 'text'
+
+      - label: 'Дозировка и расход'
+        name: 'dosage'
+        widget: 'text'
+
+      - label: 'Упаковка'
+        name: 'packaging'
+        widget: 'text'
+
+      - label: 'Условия хранения'
+        name: 'storage'
+        widget: 'text'
+
+      - label: 'Меры предосторожности'
+        name: 'precautions'
+        widget: 'text'
+
+      - label: 'Контроль качества'
+        name: 'control'
+        widget: 'text'
+
+      - label: 'Производитель'
+        name: 'manufacturer'
+        widget: 'string'
+
+      - label: 'PDF-файл'
+        name: 'pdf'
+        widget: 'file'
