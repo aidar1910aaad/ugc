@@ -22,7 +22,7 @@ jobs:
 
       - name: Сгенерировать materials-index.json
         run: |
-          node scripts/generate-index.js
+          node js/generate-index.js
 
       - name: Коммит и пуш
         run: |
