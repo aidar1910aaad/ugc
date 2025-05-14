@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Каталог товаров</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .catalog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+    }
+    .material-card {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    .material-card h3 {
+      margin-top: 0;
+    }
+    .material-card p {
+      margin: 10px 0;
+    }
+    .material-card a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #ec1c24;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div data-include="header.html"></div>
+
+  <div class="container">
+    <h1 style="text-align:center;">Каталог товаров</h1>
+    <div id="catalogList" class="catalog-list">Загрузка...</div>
+  </div>
+
+  <div data-include="footer.html"></div>
+
+  <script src="/js/loader.js"></script>
+  <script>
+    async function loadCatalog() {
+      const params = new URLSearchParams(window.location.search);
+      const selectedCategory = params.get('category');
+      const searchQuery = params.get('q')?.toLowerCase();
+      const container = document.getElementById('catalogList');
+
+      try {
+        const indexRes = await fetch('/data/materials-index.json');
+        const fileList = await indexRes.json();
+
+        const materials = await Promise.all(
+          fileList.map(async filename => {
+            const res = await fetch(`/materials/${filename}`);
+            const json = await res.json();
+            json.slug = filename.replace('.json', '');
+            return json;
+          })
+        );
+
+        const filtered = materials.filter(m => {
+          const matchCategory = selectedCategory ? m.category === selectedCategory : true;
+          const matchSearch = searchQuery
+            ? m.title.toLowerCase().includes(searchQuery) ||
+              (m.body && m.body.toLowerCase().includes(searchQuery))
+            : true;
+          return matchCategory && matchSearch;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `<p style="grid-column: 1 / -1;">❌ Ничего не найдено</p>`;
+          return;
+        }
+
+        container.innerHTML = filtered.map(m => `
+          <div class="material-card">
+            <h3>${m.title}</h3>
+            <p><strong>Категория:</strong> ${m.category}</p>
+            <p>${m.body || ''}</p>
+            <a href="/material.html?slug=${m.slug}">Подробнее →</a>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = '<p style="grid-column: 1 / -1;">❌ Ошибка загрузки товаров</p>';
+      }
+    }
+
+    loadCatalog();
+  </script>
+</body>
+</html>

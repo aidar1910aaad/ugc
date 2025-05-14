@@ -16,5 +16,43 @@
 
   <script src="js/loader.js"></script>
   <script src="js/hero.js" defer></script>
-</body>
+</body><script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const burger = document.getElementById('burger');
+    const navWrapper = document.getElementById('navWrapper');
+    const catalogLink = document.querySelector('.catalog-link');
+    const catalogDropdown = document.querySelector('.catalog-dropdown');
+    const searchInput = document.getElementById('globalSearch');
+
+    // Бургер
+    if (burger && navWrapper) {
+      burger.addEventListener('click', () => {
+        navWrapper.classList.toggle('active');
+      });
+    }
+
+    // Каталог на мобильных
+    if (catalogLink && catalogDropdown) {
+      catalogLink.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          catalogDropdown.classList.toggle('active');
+        }
+      });
+    }
+
+    // Поиск по Enter
+    if (searchInput) {
+      searchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          const query = searchInput.value.trim();
+          if (query) {
+            window.location.href = '/catalog.html?q=' + encodeURIComponent(query);
+          }
+        }
+      });
+    }
+  });
+</script>
+
 </html>

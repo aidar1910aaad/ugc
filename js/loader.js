@@ -5,7 +5,6 @@ function createSection(title, value) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // 1️⃣ Загружаем все [data-include] компоненты (header, footer и т.п.)
   const includes = document.querySelectorAll('[data-include]');
   const tasks = [];
 
@@ -18,7 +17,38 @@ document.addEventListener('DOMContentLoaded', async () => {
       })
       .then((html) => {
         el.innerHTML = html;
-        if (file.includes('hero')) initHeroSlider?.(); // если это hero-блок
+
+        // 🔁 вызываем нужные инициализации
+        if (file.includes('hero')) initHeroSlider?.();
+
+        // ✅ инициализируем бургер и глобальный поиск после вставки header
+        if (file.includes('header')) {
+          import('./burger.js').then((mod) => mod.initBurgerMenu());
+
+          // 🔍 Поиск по Enter
+          const searchInput = document.getElementById('globalSearch');
+          if (searchInput) {
+            searchInput.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                  window.location.href = '/catalog.html?q=' + encodeURIComponent(query);
+                }
+              }
+            });
+          }
+          const catalogLink = document.querySelector('.catalog-link');
+          const catalogDropdown = document.querySelector('.catalog-dropdown');
+
+          if (catalogLink && catalogDropdown) {
+            catalogLink.addEventListener('click', (e) => {
+              if (window.innerWidth <= 768) {
+                e.preventDefault();
+                catalogDropdown.classList.toggle('active');
+              }
+            });
+          }
+        }
       })
       .catch(() => {
         el.innerHTML = `<p>Не удалось загрузить ${file}</p>`;
@@ -27,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     tasks.push(task);
   }
 
-  // 2️⃣ Ждём, пока все include-вставки завершатся
+  // Дождались вставки всех компонентов
   await Promise.all(tasks);
 
   // 3️⃣ Динамически подгружаем категории в меню "Каталог"
@@ -62,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // 4️⃣ Получаем параметр slug из URL и подгружаем материал
+  // 4️⃣ Подгружаем материал по slug
   const params = new URLSearchParams(window.location.search);
   const slug = params.get('slug');
 
@@ -71,12 +101,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       const res = await fetch(`/materials/${slug}.json`);
       const data = await res.json();
 
-      // Заголовок, категория, PDF
       document.getElementById('title').textContent = data.title || '';
       document.getElementById('category').textContent = data.category || '';
       document.getElementById('pdfLink').href = data.pdf || '#';
 
-      // Основной контент по секциям
       const sectionsHTML = `
         ${createSection('Краткое описание', data.body)}
         ${createSection('Область применения', data.application)}
@@ -96,7 +124,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('content').innerHTML = '<p>❌ Материал не найден</p>';
     }
   } else {
-    // Нет слага в адресе
     if (document.getElementById('content')) {
       document.getElementById('content').innerHTML = '<p>❌ Слаг не указан</p>';
     }

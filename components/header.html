@@ -4,20 +4,65 @@
       <img src="/assets/logo.png" alt="Логотип" class="logo" />
     </a>
 
-    <input type="text" class="search" placeholder="Поиск..." />
-
-    <nav class="nav">
-      <div class="nav-item catalog-dropdown">
-        <a href="#" class="catalog-link">Каталог</a>
-        <div class="dropdown-menu" id="catalog-menu"></div>
-      </div>
-      <a href="/about.html">Компания</a>
-      <a href="/careers.html">Вакансии</a>
-      <a href="/services.html">Услуги</a>
-    </nav>
+    <input type="text" class="search" id="globalSearch" placeholder="Поиск..." />
 
     <div class="phone">
       <button class="call-btn"><span>+7 (700) 123-45-67</span></button>
     </div>
+
+    <button class="burger" id="burger">☰</button>
+
+    <div class="nav-wrapper" id="navWrapper">
+      <nav class="nav">
+        <div class="nav-item catalog-dropdown">
+          <a href="#" class="catalog-link">Каталог</a>
+          <div class="dropdown-menu" id="catalog-menu">
+            <!-- категории добавляются динамически -->
+          </div>
+        </div>
+        <a href="/about.html">Компания</a>
+        <a href="/careers.html">Вакансии</a>
+        <a href="/services.html">Услуги</a>
+      </nav>
+    </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const burger = document.getElementById('burger');
+      const navWrapper = document.getElementById('navWrapper');
+      const catalogLink = document.querySelector('.catalog-link');
+      const catalogDropdown = document.querySelector('.catalog-dropdown');
+      const searchInput = document.getElementById('globalSearch');
+
+      // Бургер-меню
+      if (burger && navWrapper) {
+        burger.addEventListener('click', () => {
+          navWrapper.classList.toggle('active');
+        });
+      }
+
+      // Категории (мобильный клик)
+      if (catalogLink && catalogDropdown) {
+        catalogLink.addEventListener('click', (e) => {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            catalogDropdown.classList.toggle('active');
+          }
+        });
+      }
+
+      // Поиск по Enter
+      if (searchInput) {
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+              window.location.href = '/catalog.html?q=' + encodeURIComponent(query);
+            }
+          }
+        });
+      }
+    });
+  </script>
 </header>
