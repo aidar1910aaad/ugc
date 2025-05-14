@@ -25,9 +25,12 @@ jobs:
           node js/generate-index.js
 
       - name: Коммит и пуш
+        env:
+          TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
           git add data/materials-index.json
           git commit -m "⚙️ Автообновление materials-index.json" || echo "No changes"
           git push
