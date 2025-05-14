@@ -107,3 +107,12 @@
     height: 20px;
   }
   
+  .footer-phone-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .footer-phone-link:hover {
+    opacity: 0.85;
+  }
+  
