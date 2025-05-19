@@ -10,6 +10,8 @@
 @import '/css/material.css';
 @import 'contact.css';
 @import 'footer.css';
+@import 'delivery.css';
+@import 'support.css';
 
 
 * {
@@ -33,7 +35,9 @@ body {
 }
 
 /* Заголовки */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-bottom: 1rem;
   font-weight: 600;
 }
@@ -43,11 +47,14 @@ a {
   color: #0077cc;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
 
 /* Хэдер, футер, секции */
-header, footer, section {
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+header,
+footer,
+section {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
