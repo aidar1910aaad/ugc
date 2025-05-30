@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       'Добавки для бетона',
       'Подземное строительство',
       'Ремонтные составы и гротинговые растворы',
+      'Напольные покрытия',
     ];
 
     categories.forEach((category) => {
